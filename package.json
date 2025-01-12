@@ -75,10 +75,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nazedev/hitori.git"
+    "url": "git+https://github.com/Galangxyz/sych"
   },
   "bugs": {
-    "url": "https://github.com/nazedev/hitori/issues"
+    "url": "https://github.com/Galangxyz/sych/issues"
   },
-  "homepage": "https://github.com/nazedev/hitori#readme"
+  "homepage": "https://github.com/nazedev/sych#readme"
 }
