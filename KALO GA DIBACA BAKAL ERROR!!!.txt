@@ -1,0 +1,79 @@
+fitur +
+
+#ply
+#cekid
+#pushkontak2
+#beton
+#ytmp4
+#search
+#capcut
+#facebook
+#spo (spoftify)
+
+const fs = require('fs');
+
+// Fungsi untuk menambahkan user baru
+const addUser = (userId, _dir) => {
+    const cekUser = _dir.find((user) => user.id === userId);
+    if (cekUser) {
+        return false; // Username sudah ada
+    } else {
+        const obj = { id: userId };
+        _dir.push(obj);
+        fs.writeFileSync('./database/users.json', JSON.stringify(_dir));
+        return true; // Pendaftaran berhasil
+    }
+};
+
+// Fungsi untuk mengecek apakah username sudah terdaftar
+const checkUserExists = (userId, _dir) => {
+    return _dir.some((user) => user.id === userId);
+};
+
+// Fungsi untuk memuat data pengguna
+const loadUsers = (filePath) => {
+    try {
+        const rawData = fs.readFileSync(filePath);
+        return JSON.parse(rawData);
+    } catch (err) {
+        return []; // Mengembalikan array kosong jika file tidak ada
+    }
+};
+
+// Fungsi untuk memverifikasi apakah pengguna terdaftar sebelum mengakses fitur
+const checkRegistration = (userId, _dir) => {
+    return _dir.some((user) => user.id === userId);
+};
+
+// Fungsi untuk menangani fitur perintah
+const handleCommand = (userId, command, _dir) => {
+    // Memeriksa apakah pengguna sudah terdaftar
+    if (!checkRegistration(userId, _dir)) {
+        if (command === 'daftar') {
+            const isSuccess = addUser(userId, _dir);
+            return isSuccess ? "Pendaftaran berhasil! Selamat datang, " + userId : "Username sudah terdaftar.";
+        } else {
+            return "Silakan daftar terlebih dahulu menggunakan perintah 'daftar' untuk mengakses fitur ini.";
+        }
+    }
+
+    // Jika pengguna sudah terdaftar, maka mereka bisa mengakses fitur
+    switch (command) {
+        case 'fitur1':
+            return "Anda mengakses fitur 1!";
+        case 'fitur2':
+            return "Anda mengakses fitur 2!";
+        default:
+            return "Perintah tidak dikenali.";
+    }
+};
+
+// Menggunakan kode di atas
+let users = loadUsers('./database/users.json');
+
+// Contoh penggunaan
+const userId = 'galang123';
+const command = 'fitur1';  // Perintah yang ingin dijalankan
+
+const response = handleCommand(userId, command, users);
+console.log(response);
