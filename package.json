@@ -6,6 +6,7 @@
   "type": "commonjs",
   "scripts": {
     "start": "node start.js"
+     "install": "npm install --legacy-peer-deps"
   },
   "keywords": [
     "whatsapp-bot",
